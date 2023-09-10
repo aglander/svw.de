@@ -1,5 +1,9 @@
 import type { GatsbyConfig } from "gatsby";
 
+require("dotenv").config({
+  path: `.env`,
+})
+
 const config: GatsbyConfig = {
   siteMetadata: {
     title: `SVW.de`,
@@ -17,13 +21,31 @@ const config: GatsbyConfig = {
     },
     __key: "images"
   }, {
-    resolve: 'gatsby-source-filesystem',
-    options: {
-      "name": "pages",
-      "path": "./src/pages/"
+      resolve: 'gatsby-source-filesystem',
+      options: {
+        "name": "pages",
+        "path": "./src/pages/"
+      },
+      __key: "pages"
     },
-    __key: "pages"
-  }]
+    {
+      resolve: `gatsby-source-airtable`,
+      options: {
+        apiKey: process.env.AIRTABLE_API_KEY, // may instead specify via env, see below
+        concurrency: 5, // default, see using markdown and attachments for more information
+        tables: [
+          {
+            baseId: `appYUXJqYpIFiwBTa`,
+            tableName: `players`
+          },
+          {
+            baseId: `appYUXJqYpIFiwBTa`,
+            tableName: `games`
+          }
+        ]
+      }
+    }
+  ]
 };
 
 export default config;
