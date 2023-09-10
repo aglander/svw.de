@@ -65,7 +65,7 @@ const IndexPage: React.FC<PageProps> = () => {
   const playersByGoalsPerGame: IPlayer[] = [...filteredPlayers].sort((p1, p2) => (p1.teamGoalsPerGame > p2.teamGoalsPerGame) ? -1 : (p1.teamGoalsPerGame < p2.teamGoalsPerGame) ? 1 : 0).slice(0, 5);
   const playersByConcededGoalsPerGame: IPlayer[] = [...filteredPlayers].sort((p1, p2) => (p1.concededTeamGoalsPerGame > p2.concededTeamGoalsPerGame) ? 1 : (p1.concededTeamGoalsPerGame < p2.concededTeamGoalsPerGame) ? -1 : 0).slice(0, 5);
 
-  return (<>
+  return (<div id="statsWidget">
     <div className="wp-block-columns is-layout-flex wp-container-3 wp-block-columns-is-layout-flex">
       <div className="wp-block-column is-layout-flow wp-block-column-is-layout-flow">
         <p><strong>Spiele</strong></p>
@@ -111,8 +111,7 @@ const IndexPage: React.FC<PageProps> = () => {
         </tbody></table></figure>
       </div>
     </div>
-
-  </>
+  </div>
   )
 }
 
