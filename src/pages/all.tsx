@@ -50,7 +50,7 @@ const AllPage: React.FC<PageProps> = () => {
   const playersByGames: IPlayer[] = [...players].sort((p1, p2) => (p1.games > p2.games) ? -1 : (p1.games < p2.games) ? 1 : 0);
 
   return (<div id="statsWidget">
-    <a href="javascript:history:back()">⬅️ zurück</a>
+    <a href="javascript:history.back()">⬅️ zurück</a>
     <div className="wp-block-columns is-layout-flex wp-container-3 wp-block-columns-is-layout-flex">
       <div className="wp-block-column is-layout-flow wp-block-column-is-layout-flow">
         <figure className="wp-block-table">
