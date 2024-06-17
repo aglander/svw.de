@@ -5,6 +5,7 @@ require("dotenv").config({
 })
 
 const config: GatsbyConfig = {
+  
   siteMetadata: {
     title: `SVW.de`,
     siteUrl: `https://www.yourdomain.tld`
