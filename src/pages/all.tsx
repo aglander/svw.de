@@ -56,11 +56,11 @@ const AllPage: React.FC<PageProps> = () => {
         <figure className="wp-block-table">
           <table>
             <thead>
-              <tr><th colSpan={2}></th><th colSpan={3}>Individuell</th><th colSpan={3}>Team</th></tr>
-              <tr><th colSpan={2}>Spieler</th><th title="Spiele">S</th><th title="Tore">T</th><th title="Vorlagen">V</th><th title="Punkte pro Spiel">P</th><th title="Tore pro Spiel">T</th><th title="Gegentore pro Spiel">G</th></tr>
+              <tr><th></th><th colSpan={3}>Individuell</th><th colSpan={3}>Team</th></tr>
+              <tr><th>Spieler</th><th title="Spiele">S</th><th title="Tore">T</th><th title="Vorlagen">V</th><th title="Punkte pro Spiel">P</th><th title="Tore pro Spiel">T</th><th title="Gegentore pro Spiel">G</th></tr>
             </thead>
             <tbody>
-          {playersByGames.map((player, index) => <tr><td>{index+1}</td><td title={player.name}>{player.name}</td><td>{player.games}</td><td>{player.goals}</td><td>{player.assists}</td><td>{player.pointsPerGame.toFixed(1)}</td><td>{player.teamGoalsPerGame.toFixed(1)}</td><td>{player.concededTeamGoalsPerGame.toFixed(1)}</td></tr>)}
+          {playersByGames.map((player, index) => <tr><td title={player.name}>{index+1}. {player.name}</td><td>{player.games}</td><td>{player.goals}</td><td>{player.assists}</td><td>{player.pointsPerGame.toFixed(1)}</td><td>{player.teamGoalsPerGame.toFixed(1)}</td><td>{player.concededTeamGoalsPerGame.toFixed(1)}</td></tr>)}
         </tbody></table></figure>
       </div>
     </div>
