@@ -6,7 +6,15 @@ require("dotenv").config({
 
 module.exports = {
   headers: [
-    
+    {
+      source: `/all`,
+      headers: [
+        {
+          key: `X-Frame-Options`,
+          value: `ALLOW-FROM https://www.svwoltersdorf.de`,
+        }
+      ]
+    },
   ]
 }
 
