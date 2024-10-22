@@ -35,13 +35,21 @@ const config: GatsbyConfig = {
         apiKey: process.env.AIRTABLE_API_KEY, // may instead specify via env, see below
         concurrency: 5, // default, see using markdown and attachments for more information
         tables: [
+          //{
+          //  baseId: `appYUXJqYpIFiwBTa`,
+          //  tableName: `players`
+          //},
+          //{
+          //  baseId: `appYUXJqYpIFiwBTa`,
+          //  tableName: `games`
+          //},
           {
             baseId: `appYUXJqYpIFiwBTa`,
-            tableName: `players`
+            tableName: `stats`
           },
           {
             baseId: `appYUXJqYpIFiwBTa`,
-            tableName: `games`
+            tableName: `seasons`
           }
         ]
       }

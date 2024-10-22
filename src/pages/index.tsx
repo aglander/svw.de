@@ -1,73 +1,31 @@
 import * as React from "react"
 import type { HeadFC, PageProps } from "gatsby"
-import { graphql, useStaticQuery } from "gatsby"
-
-interface IPlayer {
-  readonly name: string
-  readonly games: number
-  readonly goals: number
-  readonly assists: number
-  readonly points: number
-  readonly pointsPerGame: number
-  readonly teamGoalsPerGame: number
-  readonly concededTeamGoalsPerGame: number
-}
+import usePlayerStats from '../hooks/usePlayerStats'
+import { ISeason } from '../types/types';
 
 const IndexPage: React.FC<PageProps> = () => {
 
-  const {
-    playerStats: {
-      nodes: playersAirtable
-    },
-    gameStats: {
-      nodes: games
-    }
-  } = useStaticQuery(
-    graphql`
-    {
-      playerStats: allAirtable(
-        filter: {table: {eq: "players"}, data: {Games: {gt: 0}}}
-      ) {
-        nodes {
-          data {
-            name: Name,
-            games: Games,
-            goals: Goals,
-            assists: Assists,
-            points: Points,
-            pointsPerGame: Points_per_Game
-            teamGoalsPerGame: Team_Goals_per_Game
-            concededTeamGoalsPerGame: Conceded_Team_Goals_per_Game
-          }
-        }
-      }
-      gameStats: allAirtable(filter: {table: {eq: "games"}, data: {Points: {ne: null}}}) {
-        nodes {
-          data {
-            Opponent
-          }
-        }
-      }
-    }
-  `
-  )
+  const currentSeason = '2024/2025'
+  const { playerList, seasons } = usePlayerStats(currentSeason);
 
-  const players: IPlayer[] = []
-  playersAirtable.map(function (val: { data: IPlayer }) {
-    players.push(val.data)
-  });
+  // Funktion zur Abrufung der Saison
+  const getSeasonByName = (seasons: ISeason[], seasonName: string): ISeason | null => {
+    return seasons.find(season => season.name === seasonName) || null;
+  };
+
+  const numberOfGames = getSeasonByName(seasons, currentSeason)?.numberOfGames || 0
 
   const numberOfEntries = 10;
 
-  const playersByGames: IPlayer[] = [...players].sort((p1, p2) => (p1.games > p2.games) ? -1 : (p1.games < p2.games) ? 1 : 0).slice(0, numberOfEntries);
-  const playersByGoals: IPlayer[] = [...players].sort((p1, p2) => (p1.goals > p2.goals) ? -1 : (p1.goals < p2.goals) ? 1 : 0).slice(0, numberOfEntries);
-  const playersByAssists: IPlayer[] = [...players].sort((p1, p2) => (p1.assists > p2.assists) ? -1 : (p1.assists < p2.assists) ? 1 : 0).slice(0, numberOfEntries);
+  const playersByGames = [...playerList].sort((p1, p2) => (p1.games > p2.games) ? -1 : (p1.games < p2.games) ? 1 : 0).slice(0, numberOfEntries);
+  const playersByGoals = [...playerList].sort((p1, p2) => (p1.goals > p2.goals) ? -1 : (p1.goals < p2.goals) ? 1 : 0).slice(0, numberOfEntries);
+  const playersByAssists = [...playerList].sort((p1, p2) => (p1.assists > p2.assists) ? -1 : (p1.assists < p2.assists) ? 1 : 0).slice(0, numberOfEntries);
 
-  const filteredPlayers = players.filter((player) => player.games > games.length / 2);
-  
-  const playersByPointsPerGame: IPlayer[] = [...filteredPlayers].sort((p1, p2) => (p1.pointsPerGame > p2.pointsPerGame) ? -1 : (p1.pointsPerGame < p2.pointsPerGame) ? 1 : 0).slice(0, numberOfEntries);
-  const playersByGoalsPerGame: IPlayer[] = [...filteredPlayers].sort((p1, p2) => (p1.teamGoalsPerGame > p2.teamGoalsPerGame) ? -1 : (p1.teamGoalsPerGame < p2.teamGoalsPerGame) ? 1 : 0).slice(0, numberOfEntries);
-  const playersByConcededGoalsPerGame: IPlayer[] = [...filteredPlayers].sort((p1, p2) => (p1.concededTeamGoalsPerGame > p2.concededTeamGoalsPerGame) ? 1 : (p1.concededTeamGoalsPerGame < p2.concededTeamGoalsPerGame) ? -1 : 0).slice(0, numberOfEntries);
+  const filteredPlayers = playerList.filter((player) => player.games > numberOfGames / 2);
+
+  const playersByPointsPerGame = [...filteredPlayers].sort((p1, p2) => (p1.pointsPerGame > p2.pointsPerGame) ? -1 : (p1.pointsPerGame < p2.pointsPerGame) ? 1 : 0).slice(0, numberOfEntries);
+  const playersByGoalsPerGame = [...filteredPlayers].sort((p1, p2) => (p1.teamGoalsPerGame > p2.teamGoalsPerGame) ? -1 : (p1.teamGoalsPerGame < p2.teamGoalsPerGame) ? 1 : 0).slice(0, numberOfEntries);
+  const playersByConcededGoalsPerGame = [...filteredPlayers].sort((p1, p2) => (p1.concededTeamGoalsPerGame > p2.concededTeamGoalsPerGame) ? 1 : (p1.concededTeamGoalsPerGame < p2.concededTeamGoalsPerGame) ? -1 : 0).slice(0, numberOfEntries);
 
   return (<div id="statsWidget">
     <div className="wp-block-columns is-layout-flex wp-container-3 wp-block-columns-is-layout-flex">
