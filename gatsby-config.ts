@@ -4,6 +4,8 @@ require("dotenv").config({
   path: `.env`,
 })
 
+console.log('BEFORE ARIAN', module.exports.headers, process.env.AIRTABLE_API_KEY)
+
 module.exports = {
   headers: [
     {
@@ -17,6 +19,8 @@ module.exports = {
     },
   ]
 }
+
+console.log('AFTER ARIAN', module.exports.headers, process.env.AIRTABLE_API_KEY)
 
 const config: GatsbyConfig = {
   
