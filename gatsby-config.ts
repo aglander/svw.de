@@ -7,7 +7,7 @@ require("dotenv").config({
 module.exports = {
   headers: [
     {
-      source: `/*`,
+      source: `/all`,
       headers: [
         {
           key: `X-Frame-Options`,
