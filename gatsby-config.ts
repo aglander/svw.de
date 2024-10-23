@@ -1,32 +1,8 @@
-import type { GatsbyConfig } from "gatsby";
-
 require("dotenv").config({
-  path: `.env`,
+  path: `.env.${process.env.NODE_ENV}`,
 })
 
-console.log(JSON.stringify(module.exports.headers, null, 2));
-console.log(JSON.stringify(process.env, null, 2));
-
 module.exports = {
-  headers: [
-    {
-      source: `/all`,
-      headers: [
-        {
-          key: `X-Frame-Options`,
-          value: `ALLOW-FROM https://www.svwoltersdorf.de`,
-        }
-      ]
-    },
-  ]
-}
-
-
-console.log(JSON.stringify(module.exports.headers, null, 2));
-console.log(JSON.stringify(process.env, null, 2));
-
-const config: GatsbyConfig = {
-  
   siteMetadata: {
     title: `SVW.de`,
     siteUrl: `https://www.yourdomain.tld`
@@ -75,9 +51,16 @@ const config: GatsbyConfig = {
         ]
       }
     }
+  ],
+  headers: [
+    {
+      source: `/*`,
+      headers: [
+        {
+          key: `X-Frame-Options`,
+          value: `ALLOW-FROM https://www.svwoltersdorf.de`,
+        }
+      ]
+    }
   ]
-};
-
-console.log(JSON.stringify(config, null, 2));
-
-export default config;
+}
