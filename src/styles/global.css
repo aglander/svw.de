@@ -3,6 +3,10 @@
     font-size: 88%;
 }
 
+#statsWidget select {
+	width: 100%
+}
+
 #statsWidget table {
 	width: 100%;
 }

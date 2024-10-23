@@ -16,8 +16,15 @@ const AllPage: React.FC<PageProps> = () => {
   };
 
   return (<div id="statsWidget">
-    <div>
-        <label htmlFor="season-select">Saison auswählen: </label>
+   
+
+    <div className="wp-block-columns is-layout-flex wp-container-3 wp-block-columns-is-layout-flex">
+      <div className="wp-block-column is-layout-flow wp-block-column-is-layout-flow">
+        <figure className="wp-block-table">
+          <table>
+            <thead>
+              <tr>
+                <th><div>
         <select id="season-select" onChange={handleSeasonChange} value={selectedSeason || ""}>
           <option value="all">Alle Saisons</option>
           {seasons.map(season => (
@@ -26,14 +33,7 @@ const AllPage: React.FC<PageProps> = () => {
             </option>
           ))}
         </select>
-      </div>
-
-    <div className="wp-block-columns is-layout-flex wp-container-3 wp-block-columns-is-layout-flex">
-      <div className="wp-block-column is-layout-flow wp-block-column-is-layout-flow">
-        <figure className="wp-block-table">
-          <table>
-            <thead>
-              <tr><th></th><th colSpan={3}>Individuell</th><th colSpan={3}>Team</th></tr>
+      </div></th><th colSpan={3}>Individuell</th><th colSpan={3}>Team</th></tr>
               <tr><th>Spieler</th><th title="Spiele">S</th><th title="Tore">T</th><th title="Vorlagen">V</th><th title="Punkte pro Spiel">P</th><th title="Tore pro Spiel">T</th><th title="Gegentore pro Spiel">G</th></tr>
             </thead>
             <tbody>
