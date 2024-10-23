@@ -16,8 +16,6 @@ const AllPage: React.FC<PageProps> = () => {
   };
 
   return (<div id="statsWidget">
-    <a href="javascript:history.back()">⬅️ zurück</a>
-
     <div>
         <label htmlFor="season-select">Saison auswählen: </label>
         <select id="season-select" onChange={handleSeasonChange} value={selectedSeason || ""}>
