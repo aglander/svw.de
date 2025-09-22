@@ -5,7 +5,7 @@ import { ISeason } from '../types/types';
 
 const IndexPage: React.FC<PageProps> = () => {
 
-  const currentSeason = '2024/2025'
+  const currentSeason = '2025/2026'
   const { playerList, seasons } = usePlayerStats(currentSeason);
 
   // Funktion zur Abrufung der Saison
