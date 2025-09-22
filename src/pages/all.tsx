@@ -5,7 +5,7 @@ import { useState } from 'react'
 
 const AllPage: React.FC<PageProps> = () => {
 
-  const [selectedSeason, setSelectedSeason] = useState<string | null>('2024/2025');
+  const [selectedSeason, setSelectedSeason] = useState<string | null>('2025/2026');
   const { playerList, seasons } = usePlayerStats(selectedSeason);
   // Sortiere Spieler nach der Anzahl der Spiele
   const sortedPlayers = [...playerList].sort((a, b) => b.games - a.games);
